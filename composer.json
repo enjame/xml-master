@@ -1,5 +1,6 @@
 {
     "name": "enjame/xml-master",
+    "type": "package",
     "description": "xml2array | array2xml",
     "keywords": [],
     "minimum-stability": "dev",

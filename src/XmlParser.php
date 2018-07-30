@@ -1,7 +1,5 @@
 <?php
 
-namespace Enjame\Xml;
-
 class XmlParser
 {
     protected $content;
