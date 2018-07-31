@@ -18,7 +18,7 @@ class XmlParser
     {
         $result = [];
 
-        $xmlDocument = phpQuery::newDocument($this->content);
+        $xmlDocument = phpQuery::newDocumentXML($this->content);
 
         return $this->getElements($xmlDocument);
     }
