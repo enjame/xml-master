@@ -32,44 +32,49 @@ class XmlParser
     protected function getElements($root)
     {
         $phpQueryObject = pq($root);
-        $arr = [];
+        $result = [];
         $result = $phpQueryObject->children();
         $hasChilds = [];
+
         foreach ($result as $child) {
-            if (array_key_exists($child->tagName, $arr)) {
+            if (array_key_exists($child->tagName, $result)) {
                 if (!in_array($child->tagName, $hasChilds)) {
                     $hasChilds[] = $child->tagName;
-                    $tmpChild = $arr[$child->tagName];
-                    $arr[$child->tagName] = [];
-                    $arr[$child->tagName][] = $tmpChild;
+                    $tmpChild = $result[$child->tagName];
+                    $result[$child->tagName] = [];
+                    $result[$child->tagName][] = $tmpChild;
                 }
 
-                $arr[$child->tagName][] = $this->getItem($child);
+                $result[$child->tagName][] = $this->getItem($child);
 
             } else {
-                $arr[$child->tagName] = $this->getItem($child);
+                $result[$child->tagName] = $this->getItem($child);
             }
         }
-        return $arr;
+        
+        return $result;
     }
 
-    protected function getItem($root)
+    protected function getItem($object)
     {
-        $childText = preg_replace('/[\\\\\r\n]\s\s+/', '', pq($root)->contents()->eq(0)->text());
-        $childAttrs = pq($root)->attr('*');
-        $childs = $this->getElements($root);
-        $arr = [
-            '#value' => $childText,
-        ];
+        $result = [];
+
+        $value = preg_replace('/[\\\\\r\n]\s\s+/', '', pq($object)->contents()->eq(0)->text());
+        $attrs = pq($object)->attr('*');
+        $childs = $this->getElements($object);
+
+        if (!empty($value)) {
+            $result['#value'] = $value;
+        }
 
         foreach ($childAttrs as $key => $value) {
-            $arr['@' . $key] = $value;
+            $result['@' . $key] = $value;
         }
 
         foreach ($childs as $key => $item) {
-            $arr[$key] = $item;
+            $result[$key] = $item;
         }
 
-        return $arr;
+        return $result;
     }
 }
