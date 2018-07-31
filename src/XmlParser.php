@@ -51,7 +51,7 @@ class XmlParser
                 $result[$child->tagName] = $this->getItem($child);
             }
         }
-        
+
         return $result;
     }
 
@@ -67,7 +67,7 @@ class XmlParser
             $result['#value'] = $value;
         }
 
-        foreach ($childAttrs as $key => $value) {
+        foreach ($attrs as $key => $value) {
             $result['@' . $key] = $value;
         }
 
