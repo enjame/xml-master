@@ -6,7 +6,10 @@
     "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
-            "Enjame\\Xml\\": "src/"
+            "Enjame\\Xml\\": "src/",
         }
+    },
+    "require": {
+        "electrolinux/phpquery": "^0.9.6"
     }
 }
