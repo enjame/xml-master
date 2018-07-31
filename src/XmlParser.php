@@ -33,10 +33,10 @@ class XmlParser
     {
         $phpQueryObject = pq($root);
         $result = [];
-        $result = $phpQueryObject->children();
+        $childs = $phpQueryObject->children();
         $hasChilds = [];
 
-        foreach ($result as $child) {
+        foreach ($childs as $child) {
             if (array_key_exists($child->tagName, $result)) {
                 if (!in_array($child->tagName, $hasChilds)) {
                     $hasChilds[] = $child->tagName;
